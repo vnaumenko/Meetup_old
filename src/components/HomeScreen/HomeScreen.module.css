@@ -1,0 +1,8 @@
+.screen {
+    height: calc(100vh - 10%);
+    align-items: center;
+}
+
+.heading {
+    margin-bottom: 16px;
+}
