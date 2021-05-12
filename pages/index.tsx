@@ -1,12 +1,10 @@
-import React, { useCallback } from 'react';
-import { Layout } from 'components/Layout';
+import React from 'react';
+import ReactFullpage from '@fullpage/react-fullpage';
 import { HomeScreen } from 'components/HomeScreen';
-import { Canvas } from '@react-three/fiber';
-import { useSpring } from 'react-spring/three';
-import { Stars } from '../src/components/Stars';
-import classes from './index.module.css';
+import { ProgramScreen } from 'components/ProgramScreen';
+import { FaqScreen } from 'components/FaqScreen';
 
-const Home = () => (
+const Home: React.FC = () => {
   // This tiny spring right here controlls all(!) the animations, one for scroll, the other for mouse movement ...
   // const [{ top, mouse }, set] = useSpring(() => ({ top: 0, mouse: [0, 0] }));
   // const onMouseMove = useCallback(
@@ -16,14 +14,27 @@ const Home = () => (
   // );
   // const onScroll = useCallback((e) => set({ top: e.target.scrollTop }), []);
 
-  <Layout>
-    <HomeScreen />
-    {/* <Canvas className={classes.canvas}> */}
-    {/*  <Stars /> */}
-    {/* </Canvas> */}
-    {/* <div className="scroll-container" onScroll={onScroll} onMouseMove={onMouseMove}> */}
-    {/*  <div style={{ height: '525vh' }} /> */}
-    {/* </div> */}
-  </Layout>
-);
+
+  return <ReactFullpage
+    scrollingSpeed={1000}
+    navigation
+    render={({ fullpageApi }) => {
+      console.log(fullpageApi);
+      return (
+        <ReactFullpage.Wrapper>
+          <div className="section">
+            <HomeScreen fullpageApi={fullpageApi} />
+          </div>
+          <div className="section">
+            <ProgramScreen fullpageApi={fullpageApi} />
+          </div>
+          <div className="section">
+            <FaqScreen fullpageApi={fullpageApi} />
+          </div>
+        </ReactFullpage.Wrapper>
+      );
+    }}
+  />
+}
+
 export default Home;

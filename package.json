@@ -9,9 +9,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "@fullpage/react-fullpage": "^0.1.19",
     "@react-spring/three": "^9.1.2",
     "@react-three/drei": "^4.3.3",
     "@react-three/fiber": "^6.0.21",
+    "@types/fullpage.js": "^2.9.2",
+    "ansi-regex": "^6.0.0",
     "antd": "^4.15.4",
     "drei": "^2.2.21",
     "next": "^10.2.0",

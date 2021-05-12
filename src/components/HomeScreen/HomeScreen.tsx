@@ -1,51 +1,50 @@
-import React, { Suspense, useEffect, useRef } from 'react';
-import { Button, Col, Image, Row, Space, Typography } from 'antd';
-import { Canvas } from '@react-three/fiber';
-import { softShadows } from '@react-three/drei';
-
+import React from 'react';
+import { Button, Col, Layout, Content, Row, Space, Typography } from 'antd';
+import { ArrowDownOutlined } from '@ant-design/icons';
 import styles from './HomeScreen.module.css';
-import { Stars } from '../Stars';
+import { Canvas } from './Canvas';
 
-export default function HomeScreen() {
-  useEffect(() => {
-    softShadows();
-  }, []);
+type Props = {
+  fullpageApi: any;
+}
+
+const HomeScreen: React.FC<Props> = (props) => {
+  const { fullpageApi } = props;
+  const inlineStyle: {[p: string]: React.CSSProperties} = {
+    title: {
+      fontSize: 48
+    },
+    lead: {
+      fontSize: 18
+    }
+  }
 
   return (
-    <Row className={styles.screen}>
-      <Col span={7} offset={1}>
-        <Space direction="vertical">
-          <div className={styles.heading}>
-            <Typography.Title>Название митапа</Typography.Title>
-            <Typography.Text strong>Тут краткий интересный текст</Typography.Text>
-          </div>
-          <Space>
-            <Button type="primary" size="large">
-              Программа
-            </Button>
-            <Button type="link">F.A.Q</Button>
-          </Space>
-        </Space>
-      </Col>
-      <Col span={16} style={{ height: '100%', position: 'relative' }}>
-        {/* <div style={{ position: 'absolute', left: 80, top: 150 }}> */}
-        {/*  <Image src="/bg.svg" /> */}
-        {/* </div> */}
-        <Canvas shadows camera={{ fov: 60, position: [-5, 2, 10] }}>
-          <fog attach="fog" args={['white', 0, 40]} />
-          <ambientLight intensity={0.4} />
-          <directionalLight
-            castShadow
-            position={[2.5, 8, 5]}
-            intensity={1.5}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-          />
-          <Suspense fallback={null}>
-            <Stars />
-          </Suspense>
-        </Canvas>
-      </Col>
-    </Row>
+    <Layout className={'layout'}>
+      <Layout.Content className={'content'}>
+        <div className={styles.bg}/>
+        <Row className={'row'}>
+          <Col span={8}>
+            <Space direction={'vertical'} size={'large'}>
+              <Space direction={'vertical'}>
+                <Typography.Title style={inlineStyle.title}>Life IT Meetup'21</Typography.Title>
+                <Typography.Text style={inlineStyle.lead}>Классный митап с классными спикерами на классные темы.</Typography.Text>
+              </Space>
+              <Space size={'large'}>
+                <Button type="primary" shape="round" icon={<ArrowDownOutlined />} size={'large'} onClick={() => fullpageApi.moveSectionDown()}>
+                  Программа
+                </Button>
+                <Button type="link">F.A.Q</Button>
+              </Space>
+            </Space>
+          </Col>
+          <Col span={16} style={{ height: '100%', position: 'relative' }}>
+            <Canvas disabledAnimation/>
+          </Col>
+        </Row>
+      </Layout.Content>
+    </Layout>
   );
 }
+
+export { HomeScreen }
